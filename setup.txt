@@ -1,5 +1,8 @@
 - express json-backend --view=hjs
 - npm i bcryptjs cors dotenv jsonwebtoken mongoose moment passport passport-jwt validator --save
 - setup dotenv
--require dotenv in app.js
+- require dotenv in app.js
 - connect to database
+- create heroku app, and add the heroku remote
+- In heroku app settings add all .env variables
+- In heroku resources add any add-ons

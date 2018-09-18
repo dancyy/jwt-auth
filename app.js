@@ -11,7 +11,9 @@ require('dotenv').config();
 mongoose
   .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
   .then(() => console.log('MONGOD CONNECTED'))
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+  });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
