@@ -1,0 +1,5 @@
+- express json-backend --view=hjs
+- npm i bcryptjs cors dotenv jsonwebtoken mongoose moment passport passport-jwt validator --save
+- setup dotenv
+-require dotenv in app.js
+- connect to database
