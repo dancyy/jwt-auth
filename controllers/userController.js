@@ -41,5 +41,52 @@ module.exports = {
           }
         });
     });
+  },
+  login: (params) => {
+    const email = params.email;
+    const password = params.password;
+    return new Promise((resolve, reject) => {
+      User
+        .findOne({ email })
+        .then(user => {
+          if(!user) {
+            let error = {};
+            errors.message = 'User not found';
+            errors.status = 404;
+            reject(errors);
+          } 
+
+          // compare the passwords
+          bcrypt
+            .compare(password, user.password)
+            .then(isAuth => {
+              if(!isAuth){
+                let error = {};
+                errors.message = 'Check your username and password';
+                errors.status = 403;
+                reject(errors);
+              } else {
+                const payLoad = {
+                  id: user._id,
+                  email: user.email,
+                  username: user.username
+                }
+
+                jwt.sign(payload, process.env.SUPER_SECRET_CODE, {
+                  expiresIn: 4500
+                }, (err, token) => {
+                  if(err) {
+                    console.log(err);
+                    reject(err);
+                  }
+                  let success = {};
+                  success.confirmation = 'Success!';
+                  success.token = 'Bearer ' + token;
+                  resolve(success);
+                });
+              }
+            })
+        })
+    });
   }
 };
